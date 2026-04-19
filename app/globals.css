@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Use html + html.light (not :root + .light): same specificity as :root breaks light theme when CSS order shifts. html.light always overrides html. */
+html {
+  --color-gold: #c9a84c;
+  /* Default = dark (original site) */
+  --color-navy-rgb: 10 14 26;
+  --color-navy-muted-rgb: 17 24 39;
+  --color-parchment-rgb: 245 240 232;
+  scroll-behavior: smooth;
+}
+
+html.light {
+  --color-navy-rgb: 245 240 232;
+  --color-navy-muted-rgb: 255 252 248;
+  --color-parchment-rgb: 10 14 26;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  /* Don’t use @apply bg-navy here — Tailwind inlines fixed rgb() at build time. */
+  background-color: rgb(var(--color-navy-rgb) / 1);
+  color: rgb(var(--color-parchment-rgb) / 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lucide icons use stroke="currentColor" — keep stroke tied to text color in all themes */
+svg.lucide {
+  stroke: currentColor;
+}
+
+.font-latin {
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Gold nav underline */
+.nav-link-gold {
+  position: relative;
+}
+.nav-link-gold::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s ease;
+}
+.nav-link-gold:hover::after,
+.nav-link-gold:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Section divider diamond */
+.section-rule {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 168, 76, 0.45),
+    transparent
+  );
+}
+.section-rule::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: #c9a84c;
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.35);
+}
+
+/* Team card flip */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.flip-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.group:hover .flip-inner,
+.group:focus-within .flip-inner {
+  transform: rotateY(180deg);
+}
+[dir="rtl"] .group:hover .flip-inner,
+[dir="rtl"] .group:focus-within .flip-inner {
+  transform: rotateY(-180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+[dir="rtl"] .flip-back {
+  transform: rotateY(-180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+  .group:hover .flip-inner,
+  .group:focus-within .flip-inner,
+  [dir="rtl"] .group:hover .flip-inner,
+  [dir="rtl"] .group:focus-within .flip-inner {
+    transform: none;
+  }
+}
+
+/*
+ * Tailwind resolves theme colors to literal rgb() in utilities, so toggling
+ * html.light had no effect. Re-declare themed utilities to use CSS variables.
+ */
+@layer utilities {
+  .bg-navy {
+    background-color: rgb(var(--color-navy-rgb) / var(--tw-bg-opacity, 1));
+  }
+  .bg-navy\/40 {
+    background-color: rgb(var(--color-navy-rgb) / 0.4);
+  }
+  .bg-navy\/60 {
+    background-color: rgb(var(--color-navy-rgb) / 0.6);
+  }
+  .bg-navy\/80 {
+    background-color: rgb(var(--color-navy-rgb) / 0.8);
+  }
+  .bg-navy\/95 {
+    background-color: rgb(var(--color-navy-rgb) / 0.95);
+  }
+
+  .bg-navy-muted {
+    background-color: rgb(var(--color-navy-muted-rgb) / var(--tw-bg-opacity, 1));
+  }
+  .bg-navy-muted\/40 {
+    background-color: rgb(var(--color-navy-muted-rgb) / 0.4);
+  }
+  .bg-navy-muted\/50 {
+    background-color: rgb(var(--color-navy-muted-rgb) / 0.5);
+  }
+  .bg-navy-muted\/60 {
+    background-color: rgb(var(--color-navy-muted-rgb) / 0.6);
+  }
+  .bg-navy-muted\/70 {
+    background-color: rgb(var(--color-navy-muted-rgb) / 0.7);
+  }
+  .bg-navy-muted\/80 {
+    background-color: rgb(var(--color-navy-muted-rgb) / 0.8);
+  }
+  .bg-navy-muted\/90 {
+    background-color: rgb(var(--color-navy-muted-rgb) / 0.9);
+  }
+
+  .text-parchment {
+    color: rgb(var(--color-parchment-rgb) / var(--tw-text-opacity, 1));
+  }
+  .text-parchment\/45 {
+    color: rgb(var(--color-parchment-rgb) / 0.45);
+  }
+  .text-parchment\/55 {
+    color: rgb(var(--color-parchment-rgb) / 0.55);
+  }
+  .text-parchment\/65 {
+    color: rgb(var(--color-parchment-rgb) / 0.65);
+  }
+  .text-parchment\/70 {
+    color: rgb(var(--color-parchment-rgb) / 0.7);
+  }
+  .text-parchment\/75 {
+    color: rgb(var(--color-parchment-rgb) / 0.75);
+  }
+  .text-parchment\/80 {
+    color: rgb(var(--color-parchment-rgb) / 0.8);
+  }
+  .text-parchment\/85 {
+    color: rgb(var(--color-parchment-rgb) / 0.85);
+  }
+
+  .hover\:text-parchment:hover {
+    color: rgb(var(--color-parchment-rgb) / var(--tw-text-opacity, 1));
+  }
+
+  .from-navy-muted {
+    --tw-gradient-from: rgb(var(--color-navy-muted-rgb) / 1)
+      var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(var(--color-navy-muted-rgb) / 0)
+      var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  .to-navy {
+    --tw-gradient-to: rgb(var(--color-navy-rgb) / 1) var(--tw-gradient-to-position);
+  }
+}
