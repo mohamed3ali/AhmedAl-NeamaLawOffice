@@ -14,7 +14,7 @@ import { translations } from "@/lib/i18n/translations";
 type LanguageContextValue = {
   locale: Locale;
   setLocale: (l: Locale) => void;
-  t: (typeof translations)["ar"];
+  t: (typeof translations)[Locale];
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
