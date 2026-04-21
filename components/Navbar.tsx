@@ -34,33 +34,23 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
-  /** Home hero is always dark; in light theme `text-parchment` is nearly black — illegible on the hero. */
+  /** The hero section now supports light theme properly, so we don't need hardcoded text colors anymore. */
   const onHero = pathname === "/" && !scrolled;
 
   const navClass = scrolled
     ? "bg-navy/95 border-b border-gold/15 shadow-lg backdrop-blur-md"
     : "bg-transparent";
 
-  const linkInactive = onHero
-    ? "text-[#F5F0E8]/85 hover:text-[#F5F0E8]"
-    : "text-parchment/85 hover:text-parchment";
+  const linkInactive = "text-parchment/85 hover:text-parchment";
+  const localeInactive = "text-parchment/70 hover:text-parchment";
 
-  const localeInactive = onHero
-    ? "text-[#F5F0E8]/70 hover:text-[#F5F0E8]"
-    : "text-parchment/70 hover:text-parchment";
-
-  const menuIconClass = onHero
-    ? "inline-flex rounded border border-gold/40 p-2 text-[#F5F0E8] lg:hidden"
-    : "inline-flex rounded border border-gold/40 p-2 text-parchment lg:hidden";
+  const menuIconClass = "inline-flex rounded border border-gold/40 p-2 text-parchment lg:hidden";
 
   const primaryName = locale === "ar" ? BRANDING.siteNameAr : BRANDING.siteNameEn;
   const secondaryName = locale === "ar" ? BRANDING.siteNameEn : BRANDING.siteNameAr;
 
-  const titlePrimaryClass = onHero
-    ? locale === "ar"
-      ? "font-arabic text-2xl font-semibold tracking-wide text-[#F5F0E8] md:text-3xl"
-      : "font-latin text-2xl font-semibold tracking-wide text-[#F5F0E8] md:text-3xl"
-    : locale === "ar"
+  const titlePrimaryClass =
+    locale === "ar"
       ? "font-arabic text-2xl font-semibold tracking-wide text-parchment md:text-3xl"
       : "font-latin text-2xl font-semibold tracking-wide text-parchment md:text-3xl";
 

@@ -15,10 +15,7 @@ export function ThemeToggle({ onDarkHero }: Props = {}) {
 
   const isDark = theme === "dark";
 
-  const chrome =
-    onDarkHero === true
-      ? "text-[#F5F0E8] hover:bg-white/10"
-      : "text-parchment hover:bg-gold/10";
+  const chrome = "text-parchment hover:bg-gold/10";
 
   return (
     <button

@@ -20,6 +20,8 @@ export type Lawyer = {
   avatarImg: number;
   /** Local file under public/, e.g. "/images/mohamed-elfeki.png" */
   photoSrc?: string;
+  /** Optional custom object position for the image like "center 20%" */
+  imagePosition?: string;
 };
 
 export const nationalityFlag: Record<NationalityCode, string> = {
@@ -45,6 +47,7 @@ export const lawyers: Lawyer[] = [
     specialtiesAr: ["التقاضي العام", "الاستراتيجية القانونية"],
     specialtiesEn: ["General litigation", "Legal strategy"],
     avatarImg: 12,
+    photoSrc: "/images/leade.jpeg",
   },
   {
     id: "khaled",
@@ -63,23 +66,10 @@ export const lawyers: Lawyer[] = [
     specialtiesAr: ["المدني", "الاستثمار"],
     specialtiesEn: ["Civil", "Investment"],
     avatarImg: 33,
+    photoSrc: "/images/r.jpeg",
+    imagePosition: "center 5%",
   },
-  {
-    id: "nagi",
-    nameAr: "ناجي رمضان صابر",
-    nameEn: "Nagi Ramadan Saber",
-    roleAr: "محامٍ",
-    roleEn: "Lawyer",
-    nationality: "EG",
-    yearsExp: "١٨+ سنة",
-    bioAr: "متخصص في الدعاوى المدنية ومحكمة الاستثمار ومحكمة التمييز.",
-    bioEn: "Focused on civil cases, the Investment Court, and the Court of Cassation.",
-    tagsAr: ["المدني", "الاستثمار", "التمييز"],
-    tagsEn: ["Civil", "Investment", "Cassation"],
-    specialtiesAr: ["القضايا المدنية", "محكمة الاستثمار", "التمييز"],
-    specialtiesEn: ["Civil disputes", "Investment Court", "Cassation"],
-    avatarImg: 45,
-  },
+ 
   {
     id: "mohamed-elfeki",
     nameAr: "محمد الفقي",
@@ -112,6 +102,8 @@ export const lawyers: Lawyer[] = [
     specialtiesAr: ["المدنية", "الاستثمار", "الإدارية"],
     specialtiesEn: ["Civil", "Investment", "Administrative"],
     avatarImg: 62,
+    photoSrc: "/images/m.jpeg",
+      imagePosition: "center 5%",
   },
   {
     id: "reda",
@@ -130,6 +122,7 @@ export const lawyers: Lawyer[] = [
     specialtiesAr: ["الجنائية", "الإيجارات", "الأسرة"],
     specialtiesEn: ["Criminal", "Leases", "Family"],
     avatarImg: 68,
+    photoSrc: "/images/o.jpeg",
   },
   {
     id: "mohamed-qasem",
@@ -146,25 +139,9 @@ export const lawyers: Lawyer[] = [
     specialtiesAr: ["المدني", "الإداري"],
     specialtiesEn: ["Civil", "Administrative"],
     avatarImg: 15,
+    photoSrc: "/images/K.jpeg",
   },
-  {
-    id: "aisha",
-    nameAr: "عائشة خالد آل عثمان فخرو",
-    nameEn: "Aisha Khaled Al-Othman Fakhroo",
-    roleAr: "محامية",
-    roleEn: "Lawyer",
-    nationality: "QA",
-    yearsExp: "—",
-    registeredAr: "مقيدة بوزارة العدل",
-    registeredEn: "Registered with the Ministry of Justice",
-    bioAr: "ممارسة أمام جميع المحاكم القطرية.",
-    bioEn: "Practice before all Qatari courts.",
-    tagsAr: ["محاكم قطر"],
-    tagsEn: ["Qatari courts"],
-    specialtiesAr: ["جميع المحاكم القطرية"],
-    specialtiesEn: ["All Qatari court tiers"],
-    avatarImg: 47,
-  },
+
   {
     id: "nadia",
     nameAr: "نادية صالح",

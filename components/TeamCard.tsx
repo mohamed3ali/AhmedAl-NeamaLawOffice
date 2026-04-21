@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { nationalityFlag, type Lawyer } from "@/lib/data/lawyers";
@@ -16,9 +17,15 @@ export function TeamCard({ lawyer }: Props) {
   const tags = locale === "ar" ? lawyer.tagsAr : lawyer.tagsEn;
   const specs = locale === "ar" ? lawyer.specialtiesAr : lawyer.specialtiesEn;
   const reg = locale === "ar" ? lawyer.registeredAr : lawyer.registeredEn;
-  const src =
-    lawyer.photoSrc ??
-    `https://i.pravatar.cc/400?img=${lawyer.avatarImg}`;
+  // Start with the provided local photo if present, otherwise fall back to
+  // pravatar. If the image fails to load, we'll try pravatar, then a local
+  // placeholder image so the card always shows something sensible.
+  const initialSrc =
+    lawyer.photoSrc ?? `https://i.pravatar.cc/400?img=${lawyer.avatarImg}`;
+  const [src, setSrc] = useState(initialSrc);
+
+  // A last-resort local placeholder (exists in public/images)
+  const localPlaceholder = "/images/leader.jpeg";
 
   return (
     <div className="group perspective-1000 mx-auto h-[440px] w-full max-w-sm">
@@ -31,9 +38,22 @@ export function TeamCard({ lawyer }: Props) {
               fill
               sizes="160px"
               className="rounded-full object-cover"
+              style={{ objectPosition: lawyer.imagePosition }}
               loading="lazy"
               placeholder={lawyer.photoSrc ? "empty" : "blur"}
               blurDataURL={lawyer.photoSrc ? undefined : darkBlurDataURL}
+              onError={() => {
+                // If the current src is a local photo and it fails, try pravatar.
+                const pravatar = `https://i.pravatar.cc/400?img=${lawyer.avatarImg}`;
+                if (src !== pravatar) {
+                  setSrc(pravatar);
+                  return;
+                }
+                // If pravatar also fails, use a local placeholder.
+                if (src !== localPlaceholder) {
+                  setSrc(localPlaceholder);
+                }
+              }}
             />
           </div>
           <p className="mb-2 text-2xl" aria-hidden>

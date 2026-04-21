@@ -4,15 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 import { ScalesWatermark } from "@/components/ScalesWatermark";
 import { darkBlurDataURL } from "@/lib/image-blur";
 import { BRANDING } from "@/lib/branding";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad32b?auto=format&fit=crop&w=2000&q=80";
 
 export function Hero() {
   const { t, locale } = useLanguage();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const reduced = useReducedMotion();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], reduced ? [0, 0] : [0, 120]);
@@ -21,27 +22,27 @@ export function Hero() {
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0 -z-10">
         <Image
-          src={HERO_IMAGE}
-          alt=""
+          src="/images/law.jpg"
+          alt="Al-Neama Law Firm Background"
           fill
           priority
           sizes="100vw"
           placeholder="blur"
           blurDataURL={darkBlurDataURL}
-          className="object-cover brightness-[0.35]"
+          className={`object-cover transition-all duration-700 ${isLight ? "brightness-[0.80] opacity-80" : "brightness-[0.35]"}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a]/80 via-[#0a0e1a]/70 to-[#0a0e1a]" />
-        <div className="absolute inset-0 bg-gold-mesh" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/70 to-navy transition-colors duration-700" />
+        <div className="absolute inset-0 bg-gold-mesh opacity-50" />
         <div className="absolute inset-0 bg-grain-dark" />
       </motion.div>
 
       {/*
         inset-inline-end: مع RTL ينتقل الزخرفة لليسار، مع LTR لليمين — يتوافق مع اتجاه النص
       */}
-      <ScalesWatermark
+      {/* <ScalesWatermark
         key={locale}
         className="end-[-5%] top-1/2 h-[min(90vw,520px)] w-[min(90vw,520px)] -translate-y-1/2 md:end-[8%]"
-      />
+      /> */}
 
       <div className="relative mx-auto w-full max-w-7xl px-4 pb-24 pt-32 md:px-8 md:pt-36">
         <motion.div
@@ -62,13 +63,13 @@ export function Hero() {
               : `${BRANDING.officeFullEn} · Qatar`}
           </p>
           <h1
-            className={`mb-6 text-4xl font-semibold leading-tight text-[#F5F0E8] md:text-5xl lg:text-6xl ${
+            className={`mb-6 text-4xl font-semibold leading-tight text-parchment md:text-5xl lg:text-6xl ${
               locale === "ar" ? "font-arabic" : "font-latin"
             }`}
           >
             {t.hero.headline}
           </h1>
-          <p className="font-arabicBody mb-10 max-w-xl text-lg text-[#F5F0E8]/80 md:text-xl">
+          <p className="font-arabicBody mb-10 max-w-xl text-lg text-parchment/80 md:text-xl">
             {t.hero.sub}
           </p>
 
@@ -91,7 +92,11 @@ export function Hero() {
             </Link>
             <Link
               href="/contact"
-              className="font-arabicBody inline-flex border border-gold/60 px-8 py-3 text-sm text-[#F5F0E8] transition hover:border-gold hover:text-gold"
+              className={`font-arabicBody inline-flex border px-8 py-3 text-sm transition ${
+                isLight
+                  ? "border-gold/60 text-ink hover:border-gold hover:text-gold"
+                  : "border-gold/60 text-parchment hover:border-gold hover:text-gold"
+              }`}
             >
               {t.hero.cta2}
             </Link>
