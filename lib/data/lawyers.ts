@@ -47,7 +47,7 @@ export const lawyers: Lawyer[] = [
     specialtiesAr: ["التقاضي العام", "الاستراتيجية القانونية"],
     specialtiesEn: ["General litigation", "Legal strategy"],
     avatarImg: 12,
-    photoSrc: "/images/leade.jpeg",
+    photoSrc: "/images/leader.jpeg",
   },
   {
     id: "khaled",
