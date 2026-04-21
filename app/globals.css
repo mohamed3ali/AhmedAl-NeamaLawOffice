@@ -39,6 +39,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-navy-muted-rgb));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.6); /* Gold color with opacity */
+  border-radius: 8px;
+  border: 2px solid rgb(var(--color-navy-muted-rgb)); /* Matches track to create padding effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.9);
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 76, 0.6) rgb(var(--color-navy-muted-rgb));
+}
+
 /* Lucide icons use stroke="currentColor" — keep stroke tied to text color in all themes */
 svg.lucide {
   stroke: currentColor;
